@@ -1,0 +1,41 @@
+body {
+	/*background-image: url(../img/NewsPaperCoffeeSpoon.jpg);*/
+	background-repeat: no-repeat;
+	width: 100%;
+	color: black;
+}
+
+.articlerow {
+	padding: 10px;
+  	margin: 10px auto;
+  	border: solid 1px black;
+	background-image: url('../img/white_wall.png');	
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#articlecontainer {
+	margin-bottom: 10px;
+}
+.grey {
+	height: 100px;
+}
+
+
+  #note {
+    float: right;
+
+  }
+
+  textarea, input {
+    display: block;
+    width: 100%;
+    background-color: #FCF5C7;
+  }
+  input {
+    height: 36px;
+    font-size: 24px;
+  }
+  textarea {
+    height: 200px;
+    font-size: 18px;
+  }

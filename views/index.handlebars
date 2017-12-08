@@ -1,0 +1,38 @@
+<div class="wrapper imageholder">
+  <header class="header">
+
+  </header>
+  <section class="content">
+    <div class="columns">
+
+      <aside class="sidebar-first">
+       <div class="whitebox">
+	<h2>ARTICLES SAVED</h2>
+
+	<div class="articlerow">
+  		{{#each articles}}
+    	{{#unless saved}}
+      	{{> save/save-block saved=true}}
+    	{{/unless}}
+  		{{/each}}
+	</div>
+		</div>
+      </aside>
+
+
+      <aside class="sidebar-second">
+      <div class="whitebox">
+			<h2>ARTICLES</h2>
+			
+		<div class="articlerow" id="articles">
+			  {{#each articles}}
+			    {{#if saved}}
+			      {{> save/save-block saved=false}}
+			    {{/if}}
+			  {{/each}}
+		</div>
+		</div>
+      </aside>
+    </div>
+  </section>
+</div>
