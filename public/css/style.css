@@ -1,9 +1,33 @@
 body {
+	margin: 0 auto;
 	background-image: url('../img/white_wall.png');
 }
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+.yellow {
+	background-color: #E0D389;
+}
+.border {
+	border: 1px solid #B3B6BF !important;
+}
+.darkgrey {
+	background-color: #B3B6BF !important;
+	color: white !important;
+}
+.panel {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .imageholder {
-	background-image: url(../img/morning_coffee_newspaper_79004_2560x1080.jpg);
+	display: block;
+    margin: 0 auto;
+	background-image: url(../img/newspaper.jpg);
 	background-repeat: no-repeat;
+	background-size: 100%;
 	width: 100%;
 	height: 400px;
 }

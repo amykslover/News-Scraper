@@ -13,9 +13,6 @@
 //     });
 
 //     //This is the page where a user will be able to see their saved articles
-//     app.get('/saved', function(request, response) {
-//         response.render('index.handlebars', response);
-//     });
 
 
 

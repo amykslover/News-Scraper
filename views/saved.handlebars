@@ -19,11 +19,11 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 
-        <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
-        <li><a href="/saved">Saved</a></li>
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/saved">Saved<span class="sr-only">(current)</span></a></li>
 
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" action="/scrape">
         <div class="form-group">
         </div>
         <button id="getNews" type="submit" class="btn btn-default yellow">Get News!</button>
@@ -42,11 +42,10 @@
 			{{#each articles}}
 
 			<div class="panel panel-default border">
-			<div class="panel-heading clearfix darkgrey"> <a href="{{this.link}}">{{this.title}}</a> 
+      <div class="panel-heading clearfix darkgrey"> <a href="{{this.link}}">{{this.title}}</a> 
       <div class="btn-group pull-right">
-        <a data-toggle="modal" data-id={{this._id}} id="saveArticle" class="btn btn-primary btn-sm">Bookmark</a>
-
-        <a data-toggle="modal" data-target="#noteModal" data-id={{this._id}} id="addNote" class="btn btn-primary btn-sm">Add Note</a>
+        <a id="bookmark" class="btn btn-primary btn-sm">Bookmark</a>
+        <a id="addNote" class="btn btn-primary btn-sm">Add Note</a>
       </div>
 
       </div>
@@ -60,23 +59,15 @@
     </div>
   </div>
 
-  <!--Note Modal -->
-  <div class="modal fade" id="noteModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add New Note</h4>
-        </div>
-        <div class="modal-body">
-          <p>Text of Note</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
+  <div id="noteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+      <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      <button class="btn btn-primary">Save changes</button>
   </div>

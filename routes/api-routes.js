@@ -8,11 +8,25 @@ var express = require("express");
 module.exports = function(app) {
 
 	// Grab every document in the Articles collection
-	app.get("/home", function (request, response) {
-		console.log("Are we getting here?")
+	app.get("/", function (request, response) {
+	  db.Article
+	    .find({})
+	    .limit(20)
+	    .then(function(dbArticle) {
+	    	console.log({ articles: dbArticle });
+	    	response.render('index', { articles: dbArticle });
+	    })
+	    .catch(function(error) {
+	      response.json(error);
+	    });
+	})
+
+		// Grab every document in the Articles collection
+	app.get("/saved", function (request, response) {
 
 	  db.Article
 	    .find({})
+	    .where('saved', 'true')
 	    .limit(20)
 	    .then(function(dbArticle) {
 	     response.render('index', { articles: dbArticle });
@@ -24,6 +38,9 @@ module.exports = function(app) {
 
 	// A GET route for scraping the echojs website
 	app.get("/scrape", function(req, res) {
+
+	console.log("Line 41: Are we getting here?")
+
 	  // First, we grab the body of the html with request
 	  axios.get("http://www.echojs.com/").then(function(response) {
 	    // Then, we load that into cheerio and save it to $ for a shorthand selector
@@ -47,10 +64,12 @@ module.exports = function(app) {
 	        .then(function(dbArticle) {
 	          // If we were able to successfully scrape and save an Article, send a message to the client
 	          res.send("Scrape Complete");
+
+
 	        })
-	        .catch(function(err) {
+	        .catch(function(error) {
 	          // If an error occurred, send it to the client
-	          res.json(err);
+	          res.json(error);
 	        });
 	    });
 	  });
