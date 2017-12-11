@@ -13,7 +13,7 @@ var path = require("path");
 
 var db = require("./models");
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 7000;
 
 var app = express();
 
@@ -26,9 +26,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/news", {
-  useMongoClient: true
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", function (error, database) {
+  if (error) {
+    console.log(error);
+    process.exit(1);
+  }
+
+  // Save database object from the callback for reuse.
+  db = database;
+  console.log("Database Connection Ready");
+
+  // Initialize the app.
+  var server = app.listen(PORT, function () {
+    var port = server.address().port;
+    console.log("RUNNING ON PORT " + PORT + "!");
+  });
 });
+
+// mongoose.connect("mongodb://localhost/news", {
+//   useMongoClient: true
+// });
 
 // Routes
 // =============================================================
@@ -37,6 +54,6 @@ mongoose.connect("mongodb://localhost/news", {
 require("./routes/api-routes")(app);
 
 
-app.listen(PORT, function() {
-  console.log("RUNNING ON PORT " + PORT + "!");
-});
+// app.listen(PORT, function() {
+//   console.log("RUNNING ON PORT " + PORT + "!");
+// });
