@@ -19,7 +19,6 @@ var app = express();
 
 app.engine('handlebars', handlebars({extname: 'handlebars', defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
-// app.set('views',path.join(__dirname, 'views'));
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,17 +42,8 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", function
   });
 });
 
-// mongoose.connect("mongodb://localhost/news", {
-//   useMongoClient: true
-// });
-
 // Routes
 // =============================================================
 // require("./routes/html-routes.js")(app);
 
 require("./routes/api-routes")(app);
-
-
-// app.listen(PORT, function() {
-//   console.log("RUNNING ON PORT " + PORT + "!");
-// });

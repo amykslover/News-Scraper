@@ -36,43 +36,46 @@ module.exports = function(app) {
 	    });
 	})
 
-	// A GET route for scraping the echojs website
 	app.get("/scrape", function(req, res) {
 
-	console.log("Line 41: Are we getting here?")
+	  axios.get('https://www.washingtonpost.com/').then(function(response) {
 
-	  // First, we grab the body of the html with request
-	  axios.get("http://www.echojs.com/").then(function(response) {
-	    // Then, we load that into cheerio and save it to $ for a shorthand selector
 	    var $ = cheerio.load(response.data);
-	    // Now, we grab every h2 within an article tag, and do the following:
-	    $("article h2").each(function(i, element) {
-	      // Save an empty result object
+
+	    //This is where the summary for each article is, if there is a summary
+	 //    $('.blurb').each(function(i, element) {
+		//     var result = {};
+		//     result.summary = $(this).text();
+		//     console.log(result)
+		// })
+
+
+	    $('.headline a').each(function(i, element) {
 	      var result = {};
 
 	      // Add the text and href of every link, and save them as properties of the result object
-	      result.title = $(this)
-	        .children("a")
-	        .text();
-	      result.link = $(this)
-	        .children("a")
-	        .attr("href");
-
+	      result.title = $(this).text();
+	      result.link = $(this).attr("href");
+	      console.log(result);
 	      // Create a new Article using the `result` object built from scraping
+	      
 	      db.Article
 	        .create(result)
 	        .then(function(dbArticle) {
 	          // If we were able to successfully scrape and save an Article, send a message to the client
-	          res.send("Scrape Complete");
-
-
 	        })
 	        .catch(function(error) {
 	          // If an error occurred, send it to the client
+	          console.log("Line 76 in api-routes")
 	          res.json(error);
 	        });
 	    });
-	  });
+	    
+	  }).catch(function(error) {
+	  	console.log(error)
+	  })
+		res.redirect('/');
+
 	});
 
 	app.get("/articles/:id", function(req, res) {
@@ -91,8 +94,10 @@ module.exports = function(app) {
 	    });
 	});
 
+
 	// Route for saving/updating an Article's associated Note
 	app.post("/articles/:id", function(req, res) {
+		console.log(req.body)
 	    // Create a new note and pass the req.body to the entry
 	    db.Note
 	      .create(req.body)
