@@ -31,7 +31,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", function
     process.exit(1);
   }
 
-  // Save database object from the callback for reuse.
   db = database;
   console.log("Database Connection Ready");
 
@@ -42,8 +41,5 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/news", function
   });
 });
 
-// Routes
-// =============================================================
-// require("./routes/html-routes.js")(app);
 
 require("./routes/api-routes")(app);

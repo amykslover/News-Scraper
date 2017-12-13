@@ -40,23 +40,30 @@
       <div class="articles">
 			
 			{{#each articles}}
-          {{#unless saved}}
-            {{> save/save-block saved=false}}
-          {{/unless}}
-			<div class="panel panel-default border">
-			<div class="panel-heading clearfix darkgrey"> <a href="{{this.link}}">{{this.title}}</a> 
+      <div class="panel panel-default border">
+      <div class="panel-heading clearfix darkgrey"> 
       <div class="btn-group pull-right">
+      
+      {{#if saved}}
+        <button id="unsaveArticle" class="btn btn-primary btn-sm" data-id="{{_id}}">Unsave</button>
+        <button id="addNote" class="btn btn-primary btn-sm" data-id="{{_id}}">Add Note</button>  
+      {{else}}
+        <button id="saveArticle" class="btn btn-primary btn-sm" data-id="{{_id}}">Bookmark</button>
+      {{/if}}
 
-        <a data-toggle="modal" data-id={{this._id}} class="btn btn-primary btn-sm" id="saveArticle" data-savestatus="{{saved}}">{{#if saved}}X Remove{{else}}Bookmark{{/if}}</a>
-        <a data-toggle="modal" data-id={{this._id}} class="btn btn-primary btn-sm" id="addNote" data-notestatus="{{note}} data-target="#noteModal">Add Note</a>
-  
       </div>
 
       </div>
-			<div class="panel-body">Put summary here</div>
-			</div>
+      <div class="panel-body black">
+        <a href="{{link}}">{{title}}</a>
+        {{!-- Output summary if a summary exists --}}
+          {{#if summary}}
+            <p>{{summary}}</p>
+          {{/if}}
+      </div>
+      </div>
 
-			{{/each}}
+      {{/each}}
 
 		</div>
 
@@ -75,13 +82,12 @@
         </div>
 
         <div class="modal-body" id="note-modal-body">
-          <form role="form">
           
-          <div id="noteform" class="form-group">
-          <label for="note">Type Note</label>
-          <textarea class="form-control" rows="5" id="noteBody" placeholder="Enter Note Text""></textarea>
+          <form role="form" id="noteform">
+          
+          <div class="form-group">
+            <textarea class="form-control" rows="5" id="noteBody" placeholder="Enter Note Text"></textarea>
           </div>
-          
           </form>
       
         </div>
